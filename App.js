@@ -6,12 +6,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'; 
 
-// 1. Importaciones corregidas (Asumo que renombraste HistorialPage a HistorialPage)
+// 1. Importaciones corregidas
 import LoginPage from './src/pages/LoginPage';
 import HomePage from './src/pages/HomePage'; // Registrar Carga
 import HistorialPage from './src/pages/HistorialPage'; // Historial
-import UserPage from './src/pages/UserPage'; // El placeholder que acabamos de crear
-
+import UserPage from './src/pages/UserPage'; //Usuario
+import TanquePage from './src/pages/TanquePage'; //Tanque
 const Tab = createBottomTabNavigator();
 
 // --- Este es el contenedor de la App Principal (con pestañas) ---
@@ -25,6 +25,8 @@ function AppTabs({ onLogout }) {
             iconName = focused ? 'add-circle' : 'add-circle-outline';
           } else if (route.name === 'Historial') {
             iconName = focused ? 'time' : 'time-outline';
+          } else if (route.name === 'Tanque') {
+            iconName = focused ? 'pie-chart' : 'pie-chart-outline';
           } else if (route.name === 'Usuario') {
             iconName = focused ? 'person' : 'person-outline';
           }
@@ -39,6 +41,7 @@ function AppTabs({ onLogout }) {
         {props => <HomePage {...props} onLogout={onLogout} />}
       </Tab.Screen>
       <Tab.Screen name="Historial" component={HistorialPage} /> 
+      <Tab.Screen name="Tanque" component={TanquePage} />
       <Tab.Screen name="Usuario" component={UserPage} />
     </Tab.Navigator>
   );
