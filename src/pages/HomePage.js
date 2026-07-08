@@ -57,7 +57,7 @@ const fetchData = async () => {
         setConductoresData(conductoresFormateados);
         setError('');
     } catch (err) {
-        // ... (resto del código igual)
+       
     } finally {
         setLoading(false);
     }
@@ -227,6 +227,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 16,
     backgroundColor: "#fff",
+    color: "#333333",
   },
 
   dropdownBox: {

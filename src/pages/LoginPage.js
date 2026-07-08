@@ -107,6 +107,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginBottom: 15,
     fontSize: 16,
+    backgroundColor: "#ffffff", // <--- AGREGA ESTO: Asegura fondo blanco
+    color: "#333333",
   },
   button: {
     backgroundColor: "#007bff",
