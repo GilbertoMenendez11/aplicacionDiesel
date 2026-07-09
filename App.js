@@ -13,10 +13,11 @@ import HistorialPage from "./src/pages/HistorialPage"; // Historial
 import UserPage from "./src/pages/UserPage"; //Usuario
 import TanquePage from "./src/pages/TanquePage"; //Tanque
 import { loginTranmas } from "./src/services/tranmasApi";
+import AccidentesPage from './src/pages/AccidentesPage';
 const Tab = createBottomTabNavigator();
 
 // --- Este es el contenedor de la App Principal (con pestañas) ---
-function AppTabs({ onLogout }) {
+function AppTabs({ onLogout, tranmasId }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -43,6 +44,7 @@ function AppTabs({ onLogout }) {
       </Tab.Screen>
       <Tab.Screen name="Historial" component={HistorialPage} />
       <Tab.Screen name="Tanque" component={TanquePage} />
+      <Tab.Screen name="Accidentes">{props => <AccidentesPage {...props} tranmasId={tranmasId} />}</Tab.Screen>
       <Tab.Screen name="Usuario" component={UserPage} />
     </Tab.Navigator>
   );
