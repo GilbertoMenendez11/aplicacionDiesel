@@ -46,7 +46,8 @@ function AccidentesPage({ tranmasId }) {
     if (!tranmasId) return;
     setLoadingList(true);
     try {
-      const data = await getAccidentes(tranmasId); // Solicitud GET con el ID
+      const data = await getAccidentes(tranmasId);
+      console.log("FOTOS RECIBIDAS DEL SERVIDOR:", data.map(a => a.fotos));
       setListaAccidentes(data);
     } catch (error) {
       console.error(error);
@@ -181,14 +182,21 @@ function AccidentesPage({ tranmasId }) {
           <Text style={styles.cardDesc}>{item.descripcion}</Text>
         ) : null}
 
-        {item.fotos && item.fotos.length > 0 && (
+      {item.fotos && item.fotos.length > 0 && (
           <View style={styles.fotosList}>
-            {item.fotos.map((fotoUrl, index) => (
-              // Envolvemos la imagen para que sea un botón
-              <TouchableOpacity key={index} onPress={() => abrirFoto(fotoUrl)}>
-                <Image source={{ uri: fotoUrl }} style={styles.fotoThumbList} />
-              </TouchableOpacity>
-            ))}
+            {item.fotos.map((fotoUrl, index) => {
+              
+              // 1. Creamos una nueva variable que cambia http por https
+              const urlSegura = fotoUrl.replace('http://', 'https://');
+
+              // 2. Usamos esa nueva urlSegura en el botón y en la imagen
+              return (
+                <TouchableOpacity key={index} onPress={() => abrirFoto(urlSegura)}>
+                  <Image source={{ uri: urlSegura }} style={styles.fotoThumbList} />
+                </TouchableOpacity>
+              );
+              
+            })}
           </View>
         )}
       </View>
