@@ -97,7 +97,7 @@ function HistorialPage() {
           </Text>
           <Text style={styles.cardData}>
             {parseFloat(item.galones_cargados).toFixed(2)} Gal. |{" "}
-            {item.vueltas_desde_ultima_carga} Vueltas
+            {item.vueltas_desde_ultima_carga} Viajes
           </Text>
         </View>
       </View>

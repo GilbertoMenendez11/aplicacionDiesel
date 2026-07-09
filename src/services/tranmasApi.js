@@ -3,22 +3,36 @@
 // Por ahora, como prueba, podrías poner la contraseña directamente, pero el manual
 // recomienda encarecidamente usar un archivo .env[cite: 308].
 
-const BASE_URL = 'https://tranmas.xyz/api'; // [cite: 182]
-const TRANMAS_USER = 'vigilante'; // [cite: 183]
+const BASE_URL = 'https://tranmas.xyz/api';
+const TRANMAS_USER = 'vigilante';
 const TRANMAS_PASS = 'vigilanteCM'; // Reemplaza con la contraseña real 
 
 // Paso 1 - Login en TRANMAS
-export async function loginTranmas() { // [cite: 185]
-    const res = await fetch(`${BASE_URL}/login`, { // [cite: 189]
-        method: 'POST', // [cite: 190]
-        headers: { 'Content-Type': 'application/json' }, // [cite: 191]
-        body: JSON.stringify({ username: TRANMAS_USER, password: TRANMAS_PASS }) // [cite: 192]
-    });
-    
-    if (!res.ok) throw new Error('No se pudo conectar con TRANMAS'); // [cite: 194]
-    
-    const data = await res.json();
-    return data.user_id; // Esto devuelve el ID entero que necesitamos [cite: 195]
+// Paso 1 - Login en TRANMAS
+export async function loginTranmas() { 
+    try {
+        console.log("Intentando conectar con TRANMAS...");
+        const res = await fetch(`${BASE_URL}/login`, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify({ username: TRANMAS_USER, password: TRANMAS_PASS }) 
+        });
+        
+        const data = await res.json();
+        console.log("Respuesta del servidor TRANMAS:", data); // <--- ESPÍAMOS LA RESPUESTA
+        
+        if (!res.ok) throw new Error(data.message || 'Error al loguear'); 
+        
+        // El manual dice "user id" en el JSON, pero luego usa data.user_id. 
+        // Vamos a asegurar de agarrar cualquiera de los dos
+        const id = data.user_id || data["user id"]; 
+        console.log("ID obtenido:", id);
+        
+        return id;
+    } catch (error) {
+        console.error("Error en loginTranmas:", error.message);
+        throw error;
+    }
 }
 
 // Paso 2 - Ver listado de accidentes

@@ -31,6 +31,8 @@ function AppTabs({ onLogout, tranmasId }) {
             iconName = focused ? "pie-chart" : "pie-chart-outline";
           } else if (route.name === "Usuario") {
             iconName = focused ? "person" : "person-outline";
+          } else if (route.name === "Accidentes") {
+            iconName = focused ? "warning" : "warning-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
@@ -74,7 +76,7 @@ export default function App() {
       }
     };
 
-    startApp();
+    checkToken();
   }, []);
 
   const handleLoginSuccess = (newToken) => {
@@ -103,7 +105,7 @@ export default function App() {
       {!token ? (
         <LoginPage onLoginSuccess={handleLoginSuccess} />
       ) : (
-        <AppTabs onLogout={handleLogout} />
+        <AppTabs onLogout={handleLogout} tranmasId={tranmasId} />
       )}
     </NavigationContainer>
   );
