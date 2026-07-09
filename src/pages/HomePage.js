@@ -173,7 +173,7 @@ const fetchData = async () => {
           keyboardType="numeric"
         />
 
-        <Text style={styles.label}>Vueltas Realizadas</Text>
+        <Text style={styles.label}>Viajes Realizadas</Text>
         <TextInput
           style={styles.input}
           placeholder="Ej: 10"
