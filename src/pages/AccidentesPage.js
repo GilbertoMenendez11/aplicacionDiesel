@@ -7,11 +7,11 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
-  Image,
   ActivityIndicator,
   FlatList,
   Modal,
 } from "react-native";
+import { Image } from 'expo-image';
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
@@ -82,8 +82,10 @@ function AccidentesPage({ tranmasId }) {
     }
 
     let result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ["images"],
-      quality: 0.5,
+      mediaTypes: ['images',],
+      quality: 0.2,
+      allowsEditing: true,
+      aspect: [4, 3],
     });
 
     if (!result.canceled) {
@@ -154,6 +156,7 @@ function AccidentesPage({ tranmasId }) {
       const fecha = new Date(fechaString);
       // Esto la convertirá a formato: 09 jul 2026 (ajustado a tu región)
       return fecha.toLocaleDateString("es-SV", {
+        timeZone: 'UTC',
         day: "2-digit",
         month: "short",
         year: "numeric",
