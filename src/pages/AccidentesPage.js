@@ -101,6 +101,27 @@ function AccidentesPage({ tranmasId }) {
     }
   };
 
+  // --- SELECCIONAR DE GALERÍA ---
+  const seleccionarDeGaleria = async () => {
+    if (fotos.length >= 3) {
+      Alert.alert('Límite alcanzado', 'Solo puedes subir hasta 3 fotos por reporte.');
+      return;
+    }
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      quality: 0.4, 
+      //allowsEditing: true, 
+      //aspect: [4, 3],
+    });
+
+    // Si el usuario no canceló, guardamos la foto en el estado
+   if (!result.canceled) {
+      // Guardamos la foto con la misma estructura { uri: ... } que ya usas
+      const nuevaFoto = { uri: result.assets[0].uri };
+      setFotos([...fotos, nuevaFoto]);
+    }
+  };
+
   const quitarFoto = (index) => {
     const nuevasFotos = [...fotos];
     nuevasFotos.splice(index, 1);
@@ -282,10 +303,19 @@ function AccidentesPage({ tranmasId }) {
             <Text style={styles.label}>
               Evidencia Fotográfica ({fotos.length}/3)
             </Text>
-            <TouchableOpacity style={styles.fotoButton} onPress={tomarFoto}>
-              <Text style={styles.fotoButtonText}>+ Tomar Foto</Text>
-            </TouchableOpacity>
 
+            {/* CONTENEDOR DE BOTONES LADO A LADO */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginBottom: 15 }}>
+              <TouchableOpacity style={[styles.fotoButton, { flex: 1 }]} onPress={tomarFoto}>
+                <Text style={styles.fotoButtonText}>+ Cámara</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={[styles.fotoButton, { flex: 1, backgroundColor: '#2ecc71' }]} onPress={seleccionarDeGaleria}>
+                <Text style={styles.fotoButtonText}>+ Galería</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* VISTA PREVIA DE LAS FOTOS */}
             <View style={styles.fotosPreviewContainer}>
               {fotos.map((foto, index) => (
                 <TouchableOpacity key={index} onPress={() => quitarFoto(index)}>

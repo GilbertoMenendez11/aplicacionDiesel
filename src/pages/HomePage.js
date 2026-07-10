@@ -237,10 +237,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     height: 50,
     alignItems: "center",
+    color: "#333333",
   },
   dropdownList: {
     backgroundColor: "#fff",
     borderColor: "#ccc",
+    color: "#333333",
   },
 
   button: {
